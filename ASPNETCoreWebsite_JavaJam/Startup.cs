@@ -25,8 +25,20 @@ namespace ASPNETCoreWebsite_JavaJam
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<JavaJamContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+
+            }).AddEntityFrameworkStores<JavaJamContext>();
+
+            services.AddDbContext<JavaJamContext>(cfg =>
+            {
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+
+
+
             services.AddControllersWithViews();
         }
 
@@ -45,6 +57,8 @@ namespace ASPNETCoreWebsite_JavaJam
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
+            
 
             app.UseRouting();
 

@@ -1,10 +1,11 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ASPNETCoreWebsite_JavaJam.Models
 {
-    public partial class JavaJamContext : DbContext
+    public partial class JavaJamContext : IdentityDbContext<AppUser, AppRole, int>
     {
         public JavaJamContext()
         {
